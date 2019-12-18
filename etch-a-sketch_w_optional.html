@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <body style="background-color: black;">
+        <button onclick="makeGrid(prompt('Size of grid?'))">Change grid size</button>
+    </body>
+    <script>
+        const bodycon = document.querySelector("body");
+
+        const container = document.createElement("div");
+        bodycon.appendChild(container);
+        
+        container.setAttribute("id", "container");
+        container.style.display = "flex";
+        container.style.flexDirection = "row";
+        container.style.flexWrap = "wrap";
+        container.style.justifyContent = "center";
+        container.style.alignContent = "flex-start";
+        container.style.width = "900px";
+        container.style.height = "900px";
+
+        function makeGrid(size) {
+            container.querySelectorAll('*').forEach(n => n.remove());
+            for(let i = 0; i < size; i++) {
+                for(let j = 0; j < size; j++) {
+                    const dcontent = document.createElement("div");
+                    dcontent.setAttribute('class', 'box');
+                    dcontent.style.backgroundColor = "rgb(255,255,255)";
+                    dcontent.style.opacity = "1";
+                    dcontent.style.width = (parseInt(container.style.width.slice(0, container.style.width.indexOf("p")), 10) / size) + "px";
+                    dcontent.style.height = (parseInt(container.style.height.slice(0, container.style.height.indexOf("p")), 10) / size) + "px";
+
+                    dcontent.addEventListener('mouseover', (e) => {
+                        let outputs = randomColortoBlack(dcontent.style.backgroundColor, dcontent.style.opacity);
+                        dcontent.style.backgroundColor = outputs[0];
+                        dcontent.style.opacity = outputs[1];
+                    });
+                    container.appendChild(dcontent);
+                }
+            }
+        }
+
+        function randomColortoBlack(backgroundcolor, opacity) {
+            let outputs = ["rgb", "opacity"];
+            if(backgroundcolor == "rgb(255, 255, 255)" && opacity == "1") {
+                let red = Math.floor(Math.random() * 256);
+                let green = Math.floor(Math.random() * 256);
+                let blue = Math.floor(Math.random() * 256);
+                outputs[0] = "rgb(" + red + "," + green + "," + blue + ")";
+                outputs[1] = opacity;
+                return outputs;
+            }
+            else if(opacity == "0") {
+                outputs[0] = backgroundcolor;
+                outputs[1] = opacity;
+                return outputs;
+            }
+            else {
+                opacity = (parseFloat(opacity) - 0.1).toString();
+                outputs[0] = backgroundcolor;
+                outputs[1] = opacity;
+                return outputs;
+            }
+        }
+        
+        
+        makeGrid(16);
+
+    </script>
+</html>
