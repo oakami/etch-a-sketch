@@ -6,7 +6,16 @@
         </div>
     </body>
     <script>
-        const container = document.querySelector("#container");
+        const bodycon = document.querySelector("body");
+
+        const button = document.createElement("button");
+        button.onclick = "makeGrid(prompt('Size of grid?'))";
+        bodycon.appendChild(button);
+
+        const container = document.createElement("div");
+        bodycon.appendChild(container);
+        
+        container.setAttribute("id", "container");
         container.style.display = "flex";
         container.style.flexDirection = "row";
         container.style.flexWrap = "wrap";
@@ -34,9 +43,8 @@
                 }
             }
         }
-
-        const button = document.createElement("button");
-        button.onclick = "makeGrid(prompt('Size of grid?'))";
+        
+        
         makeGrid(16);
 
     </script>
