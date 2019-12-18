@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="container">
+
+        </div>
+    </body>
+    <script>
+        const container = document.querySelector("#container");
+        container.style.display = "flex";
+        container.style.flexDirection = "row";
+        container.style.flexWrap = "wrap";
+        container.style.justifyContent = "center";
+        container.style.alignContent = "flex-start";
+        container.style.width = "900px";
+        container.style.height = "900px";
+
+        function makeGrid(size) {
+            for(let i = 0; i < size; i++) {
+                for(let j = 0; j < size; j++) {
+                    const dcontent = document.createElement("div");
+                    dcontent.setAttribute('class', 'box');
+                    dcontent.style.backgroundColor = "black";
+                    dcontent.style.width = (parseInt(container.style.width.slice(0, container.style.width.indexOf("p")), 10) / size) + "px";
+                    dcontent.style.height = (parseInt(container.style.height.slice(0, container.style.height.indexOf("p")), 10) / size) + "px";
+
+                    dcontent.addEventListener('mouseover', (e) => {
+                        dcontent.style.backgroundColor = "aqua";
+                    });
+                    dcontent.addEventListener('mouseout', (e) => {
+                        dcontent.style.backgroundColor = "black";
+                    });
+                    container.appendChild(dcontent);
+                }
+            }
+        }
+
+        const button = document.createElement("button");
+        button.onclick = "makeGrid(prompt('Size of grid?'))";
+        makeGrid(16);
+
+    </script>
+</html>
